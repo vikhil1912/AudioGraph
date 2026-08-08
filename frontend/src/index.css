@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+@theme {
+  --color-base: #000000;
+  --color-panel: #000000;
+  --color-card: #212121;
+  --color-border-subtle: #303030;
+  --color-accent-from: #ffffff;
+  --color-accent-to: #e5e5e5;
+  --color-text-primary: #ececec;
+  --color-text-muted: #999999;
+  --color-success: #4ade80;
+  --color-warning: #facc15;
+  --color-danger: #f87171;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ── Base resets ──────────────────────────────────────────────────────────── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-subtle) transparent;
+}
+
+*:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-base);
+  color: var(--color-text-primary);
+  margin: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* ── Custom scrollbar for webkit ─────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-border-subtle);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-text-muted);
+}
+
+/* ── Gradient text utility ───────────────────────────────────────────────── */
+.text-gradient {
+  color: var(--color-text-primary);
+}
+
+/* ── Glow effect ─────────────────────────────────────────────────────────── */
+.glow-purple {
+  /* Removed glow for minimalist theme */
+}
+
+.glow-purple-strong {
+  /* Removed glow for minimalist theme */
+}
+
+/* ── Pulse animation for pipeline status ─────────────────────────────────── */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.animate-pulse-dot {
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+/* ── Gradient orb animation ──────────────────────────────────────────────── */
+@keyframes float-orb {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-10px) scale(1.05); }
+}
+.animate-float-orb {
+  animation: float-orb 4s ease-in-out infinite;
+}
+
+/* ── Slide-in animation for messages ─────────────────────────────────────── */
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
+}
+
+/* ── Fade-in ─────────────────────────────────────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+/* ── Roll Up animation ───────────────────────────────────────────────────── */
+@keyframes roll-up {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+.animate-roll-up {
+  animation: roll-up 8s linear infinite;
+}
+
+.fade-mask {
+  mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+}

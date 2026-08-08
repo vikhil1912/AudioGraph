@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: audiograph-api
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api_server:app --host 0.0.0.0 --port 10000
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.11
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: MODAL_TRANSCRIBE_URL
+        sync: false
+      - key: NEO4J_URI
+        sync: false
+      - key: NEO4J_USERNAME
+        sync: false
+      - key: NEO4J_PASSWORD
+        sync: false
+      - key: MONGODB_URI
+        sync: false
+      - key: CLOUDINARY_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: GMAIL_USER
+        sync: false
+      - key: GMAIL_APP_PASSWORD
+        sync: false

@@ -1,0 +1,60 @@
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.pytest_cache/
+.coverage
+htmlcov/
+*.log
+
+# Project-specific logs/temp files
+modal_logs.txt
+tail.txt
+transcript.json
+
+# Data (audio files, transcripts, extractions -- don't commit meeting content)
+data/raw_audio/*
+data/transcripts/*
+data/outputs/*
+!data/raw_audio/.gitkeep
+!data/transcripts/.gitkeep
+!data/outputs/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
+
+# SQLite
+data/app.db
+*.db
+
+# Frontend (Node.js)
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.npm
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.pnpm-debug.log*
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
