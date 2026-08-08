@@ -67,7 +67,8 @@ const AudioPlayerBar = forwardRef(({ chatId }, ref) => {
   };
 
   const token = localStorage.getItem('audiograph_access_token');
-  const audioSrc = chatId && token ? `/api/meetings/${chatId}/audio?token=${token}` : '';
+  const API_BASE = import.meta.env.VITE_API_URL || '';
+  const audioSrc = chatId && token ? `${API_BASE}/api/meetings/${chatId}/audio?token=${token}` : '';
 
   return (
     <div className="h-14 bg-panel border-b border-border-subtle flex items-center gap-4 px-4 w-full">
