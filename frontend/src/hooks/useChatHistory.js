@@ -9,6 +9,7 @@ export function useChatHistory() {
 
   const chats = state.chats;
   const activeChatId = state.activeChatId;
+  const isLoading = state.isLoading;
 
   const activeChat = useMemo(
     () => chats.find((c) => c.id === activeChatId) || null,
@@ -101,6 +102,7 @@ export function useChatHistory() {
     chats,
     activeChatId,
     activeChat,
+    isLoading,
     createChat,
     setActiveChat,
     addMessage,

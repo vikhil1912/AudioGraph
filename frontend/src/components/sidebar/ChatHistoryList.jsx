@@ -4,7 +4,7 @@ import { groupByRecency } from '../../utils/formatDate';
 import ChatHistoryItem from './ChatHistoryItem';
 
 const ChatHistoryList = ({ searchQuery }) => {
-  const { chats, activeChatId } = useChatHistory();
+  const { chats, activeChatId, isLoading } = useChatHistory();
 
   // Filter chats based on search query
   const filteredChats = React.useMemo(() => {
@@ -23,6 +23,25 @@ const ChatHistoryList = ({ searchQuery }) => {
   const groupedChats = React.useMemo(() => {
     return groupByRecency(unpinnedChats);
   }, [unpinnedChats]);
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-4 p-4 animate-pulse">
+        <div className="flex flex-col gap-2">
+          <div className="h-3 w-16 bg-border-subtle rounded mb-2"></div>
+          {[1, 2, 3].map(i => (
+            <div key={i} className="h-14 w-full bg-border-subtle/50 rounded-xl"></div>
+          ))}
+        </div>
+        <div className="flex flex-col gap-2 mt-4">
+          <div className="h-3 w-20 bg-border-subtle rounded mb-2"></div>
+          {[1, 2, 3].map(i => (
+            <div key={i} className="h-14 w-full bg-border-subtle/50 rounded-xl"></div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   if (!filteredChats.length) {
     return (

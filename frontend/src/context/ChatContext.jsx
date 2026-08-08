@@ -11,6 +11,7 @@ function loadInitialState() {
   return {
     chats: [],
     activeChatId: null,
+    isLoading: true,
   };
 }
 
@@ -101,7 +102,7 @@ function chatReducer(state, action) {
     }
 
     case 'LOAD_CHATS':
-      return { ...state, chats: action.payload };
+      return { ...state, chats: action.payload, isLoading: false };
 
     default:
       return state;
