@@ -10,6 +10,7 @@ export default function ChatWindow({ chatId }) {
   const { activeChat, addMessage, updateMessage, updateChat } = useChatHistory();
   const messages = activeChat?.messages || [];
   const [isLoading, setIsLoading] = useState(false);
+  const [isChatLoading, setIsChatLoading] = useState(true);
   const audioPlayerRef = useRef(null);
   const loadedChatIdRef = useRef(null);
 
@@ -18,6 +19,7 @@ export default function ChatWindow({ chatId }) {
     loadedChatIdRef.current = chatId;
 
     const loadHistory = async () => {
+      setIsChatLoading(true);
       try {
         const history = await getChatHistory(chatId);
         if (history) {
@@ -32,6 +34,8 @@ export default function ChatWindow({ chatId }) {
         }
       } catch (err) {
         console.error("Failed to load chat history", err);
+      } finally {
+        setIsChatLoading(false);
       }
     };
     loadHistory();
@@ -172,7 +176,22 @@ export default function ChatWindow({ chatId }) {
         <AudioPlayerBar chatId={chatId} ref={audioPlayerRef} />
       </div>
 
-      {hasMessages ? (
+      {isChatLoading ? (
+        <div className="flex-1 flex flex-col gap-6 p-4 md:p-6 overflow-hidden animate-pulse">
+          <div className="flex flex-col gap-2 ml-auto w-3/4 max-w-[400px]">
+            <div className="h-16 bg-border-subtle/40 rounded-2xl rounded-br-md"></div>
+          </div>
+          <div className="flex flex-col gap-2 w-3/4 max-w-[500px]">
+            <div className="flex items-center gap-2 mb-1">
+              <div className="w-6 h-6 rounded-full bg-border-subtle/50"></div>
+            </div>
+            <div className="h-24 bg-card border border-border-subtle rounded-2xl rounded-bl-md"></div>
+          </div>
+          <div className="flex flex-col gap-2 ml-auto w-3/4 max-w-[400px]">
+            <div className="h-12 bg-border-subtle/40 rounded-2xl rounded-br-md"></div>
+          </div>
+        </div>
+      ) : hasMessages ? (
         <MessageList 
           messages={messages} 
           onSeekAudio={handleSeekAudio} 
