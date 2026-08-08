@@ -6,6 +6,7 @@ const AuthContext = createContext(null);
 const TOKEN_KEY = 'audiograph_access_token';
 const REFRESH_KEY = 'audiograph_refresh_token';
 const USER_KEY = 'audiograph_user';
+const API_BASE = import.meta.env.VITE_API_URL || '';
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
@@ -46,7 +47,7 @@ export function AuthProvider({ children }) {
         return;
       }
       try {
-        const res = await fetch('/api/auth/me', {
+        const res = await fetch(`${API_BASE}/api/auth/me`, {
           headers: { 'Authorization': `Bearer ${accessToken}` },
         });
         if (res.ok) {
@@ -81,7 +82,7 @@ export function AuthProvider({ children }) {
 
     refreshPromiseRef.current = (async () => {
       try {
-        const res = await fetch('/api/auth/refresh', {
+        const res = await fetch(`${API_BASE}/api/auth/refresh`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ refresh_token: refreshToken }),
@@ -91,7 +92,7 @@ export function AuthProvider({ children }) {
           setAccessToken(data.access_token);
           setRefreshToken(data.refresh_token);
           // Re-fetch user
-          const meRes = await fetch('/api/auth/me', {
+          const meRes = await fetch(`${API_BASE}/api/auth/me`, {
             headers: { 'Authorization': `Bearer ${data.access_token}` },
           });
           if (meRes.ok) {
@@ -112,7 +113,7 @@ export function AuthProvider({ children }) {
   }, [refreshToken]);
 
   const login = useCallback(async (email, password) => {
-    const res = await fetch('/api/auth/login', {
+    const res = await fetch(`${API_BASE}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -125,7 +126,7 @@ export function AuthProvider({ children }) {
     setAccessToken(data.access_token);
     setRefreshToken(data.refresh_token);
     // Fetch user profile
-    const meRes = await fetch('/api/auth/me', {
+    const meRes = await fetch(`${API_BASE}/api/auth/me`, {
       headers: { 'Authorization': `Bearer ${data.access_token}` },
     });
     if (meRes.ok) {
@@ -136,7 +137,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   const register = useCallback(async (email, password) => {
-    const res = await fetch('/api/auth/register', {
+    const res = await fetch(`${API_BASE}/api/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -149,7 +150,7 @@ export function AuthProvider({ children }) {
     setAccessToken(data.access_token);
     setRefreshToken(data.refresh_token);
     // Fetch user profile
-    const meRes = await fetch('/api/auth/me', {
+    const meRes = await fetch(`${API_BASE}/api/auth/me`, {
       headers: { 'Authorization': `Bearer ${data.access_token}` },
     });
     if (meRes.ok) {
