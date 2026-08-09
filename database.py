@@ -233,8 +233,8 @@ async def add_chat_message(meeting_id: str, user_id: str, role: str, content: st
 async def get_chat_history(meeting_id: str, user_id: str = None) -> list[dict]:
     db = get_async_db()
     query = {"meeting_id": meeting_id}
-    if user_id:
-        query["user_id"] = user_id
+    # We do not filter by user_id here because legacy chats might not have it,
+    # and meeting ownership is already verified at the API route level.
     cursor = db.chat_history.find(query).sort("created_at", 1)
     results = []
     async for doc in cursor:
@@ -246,8 +246,6 @@ async def get_chat_history(meeting_id: str, user_id: str = None) -> list[dict]:
 async def clear_chat_history(meeting_id: str, user_id: str = None):
     db = get_async_db()
     query = {"meeting_id": meeting_id}
-    if user_id:
-        query["user_id"] = user_id
     await db.chat_history.delete_many(query)
 
 

@@ -68,9 +68,16 @@ def generate_answer(
     user_content += f"Current Question: {question}\n\n"
     
     if graph_results:
+        # Prevent context length explosion: max 50 records
+        limited_results = graph_results[:50]
+        graph_json = json.dumps(limited_results, indent=2, default=str)
+        # Hard truncate string to 60k characters just in case nodes are massive
+        if len(graph_json) > 60000:
+            graph_json = graph_json[:60000] + "\n...[TRUNCATED DUE TO SIZE]..."
+
         user_content += (
             f"--- Graph Data (Relationships & Entities) ---\n"
-            f"{json.dumps(graph_results, indent=2, default=str)}\n\n"
+            f"{graph_json}\n\n"
         )
         
     if vector_results:
