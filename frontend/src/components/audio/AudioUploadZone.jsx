@@ -59,7 +59,7 @@ export default function AudioUploadZone({ onFileSelect }) {
         ref={fileInputRef} 
         onChange={handleFileInputChange} 
         className="hidden" 
-        accept=".mp3,.wav,.m4a,audio/*" 
+        accept=".mp3,.wav,.m4a,.aac,.ogg,.flac,.webm,.mp4,audio/*" 
       />
       
       <div className="flex flex-col items-center justify-center">

@@ -3,8 +3,8 @@ import { useUploadContext } from '../context/UploadContext';
 import { useChatHistory } from './useChatHistory';
 import { uploadAudio, getMeetingStatus } from '../services/api';
 
-const ACCEPTED_TYPES = ['audio/mpeg', 'audio/wav', 'audio/x-wav', 'audio/mp4', 'audio/x-m4a', 'audio/m4a'];
-const ACCEPTED_EXTENSIONS = ['.mp3', '.wav', '.m4a'];
+const ACCEPTED_TYPES = ['audio/mpeg', 'audio/wav', 'audio/x-wav', 'audio/mp4', 'audio/x-m4a', 'audio/m4a', 'audio/aac', 'audio/ogg', 'audio/flac', 'audio/webm'];
+const ACCEPTED_EXTENSIONS = ['.mp3', '.wav', '.m4a', '.aac', '.ogg', '.flac', '.webm', '.mp4'];
 
 /**
  * Hook for handling audio file uploads and pipeline transitions.
