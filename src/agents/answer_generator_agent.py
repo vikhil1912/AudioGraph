@@ -83,7 +83,10 @@ def generate_answer(
     if vector_results:
         user_content += "--- Raw Transcript Quotes (Semantic Match) ---\n"
         for res in vector_results:
-            user_content += f"[Speaker: {res.get('speaker', 'Unknown')}, Time: {res.get('start_time', 0.0):.2f}s]: {res.get('text', '')}\n"
+            text = str(res.get('text', ''))
+            if len(text) > 4000:
+                text = text[:4000] + " ...[TRUNCATED]"
+            user_content += f"[Speaker: {res.get('speaker', 'Unknown')}, Time: {res.get('start_time', 0.0):.2f}s]: {text}\n"
         user_content += "\n"
 
     response = client.beta.chat.completions.parse(

@@ -484,7 +484,11 @@ async def query_meeting(req: QueryRequest, current_user: dict = Depends(get_curr
     full_history = await database.get_chat_history(req.meeting_id, user_id)
     chat_history = []
     for msg in full_history[-6:]:
-        chat_history.append({"role": msg["role"], "content": msg["content"]})
+        # Hard truncate previous messages to avoid context window explosion
+        content = str(msg["content"])
+        if len(content) > 4000:
+            content = content[:4000] + " ...[TRUNCATED]"
+        chat_history.append({"role": msg["role"], "content": content})
 
     # Save user message
     await database.add_chat_message(req.meeting_id, user_id, "user", req.question)
