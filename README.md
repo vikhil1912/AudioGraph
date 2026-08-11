@@ -67,6 +67,4 @@ python main.py query --meeting-id meeting_001 --question "Who are the speakers?"
 - **Open-vocabulary schema**: entity types and relation labels are inferred
   by the LLM per meeting rather than hardcoded, so the graph shape adapts to
   what's actually discussed instead of assuming a fixed business-meeting schema.
-- **Pure GraphRAG**: no vector store. The query planner reads the graph's
-  actual schema (labels + relationship patterns) before generating Cypher, so
-  it never guesses at label names that don't exist.
+
